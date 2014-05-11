@@ -1,4 +1,4 @@
 trip_money_organizer
 ====================
 
-who pay what?
+who pays what to whom?
