@@ -17,18 +17,18 @@ class Trip(object):
     def calculate(self):
         people_ordered = self.order_by_payment()
         for person in people_ordered:
-            person.other_pay(people_ordered) 
+            person.other_pay(people_ordered)
         self.show_results()
 
     def show_results(self):
         for person in self.people:
             if len(person.should_pay.keys()) == 0:
-                print "%s nao deve pagar nada" % (person.name)
+                print "%s does not pay anything" % (person.name)
                 continue
-            print "%s deve pagar:" % (person.name)
+            print "%s must pay:" % (person.name)
             for other in person.should_pay.iterkeys():
                 if person.should_pay[other] > 0:
-                    print "\t%2.2f para %s" % (person.should_pay[other], other.name) 
+                    print "\t%2.2f to %s" % (person.should_pay[other], other.name)
 
     def order_by_payment(self):
         return sorted(self.people)
@@ -39,7 +39,7 @@ class Person(object):
         self.payments = [Payment(0)]
         self.should_pay = dict()
         self.should_receive = 0
- 
+
     def __repr__(self):
         return self.name
 
@@ -48,7 +48,7 @@ class Person(object):
             return 1
         elif self.max_payment() > other.max_payment():
             return -1
-        else: 
+        else:
             return 0
 
     def other_pay(self, people):
@@ -64,7 +64,7 @@ class Person(object):
                 person.should_pay[self] = pay - self.should_pay.get(person, 0)
                 if self.should_pay.get(person, False) is not False:
                     del self.should_pay[person]
-  
+
     def max_payment(self):
         return max(map(lambda x: x.value, self.payments))
 
